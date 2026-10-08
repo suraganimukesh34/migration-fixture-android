@@ -1,22 +1,13 @@
-package com.example.fixture.ui;
+package com.example.fixture.ui
 
-import com.example.fixture.data.OrderRepository;
-import com.example.fixture.model.Order;
+import com.example.fixture.data.OrderRepository
 
-public class OrderViewModel {
-    private final OrderRepository repository;
-    private String summary;
+class OrderViewModel(private val repository: OrderRepository) {
+    var summary: String? = null
+        private set
 
-    public OrderViewModel(OrderRepository repository) {
-        this.repository = repository;
-    }
-
-    public String getSummary() {
-        return summary;
-    }
-
-    public void loadOrder(String id) {
-        Order order = repository.findById(id);
-        summary = order != null ? "Total: " + order.getTotal() : "No order";
+    fun loadOrder(id: String) {
+        val order = repository.findById(id)
+        summary = order?.let { "Total: ${it.total}" } ?: "No order"
     }
 }
