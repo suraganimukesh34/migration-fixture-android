@@ -1,0 +1,2 @@
+rootProject.name = "migration-fixture-android"
+include ':app'
