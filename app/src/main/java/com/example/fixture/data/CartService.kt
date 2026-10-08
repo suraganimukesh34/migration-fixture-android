@@ -1,24 +1,15 @@
-package com.example.fixture.data;
+package com.example.fixture.data
 
-import com.example.fixture.model.Product;
+import com.example.fixture.model.Product
 
-import java.util.ArrayList;
-import java.util.List;
+class CartService {
+    private val items = mutableListOf<Product>()
 
-public class CartService {
-    private final List<Product> items = new ArrayList<>();
-
-    public void add(Product product) {
-        if (product != null && product.isInStock()) {
-            items.add(product);
+    fun add(product: Product?) {
+        if (product != null && product.inStock) {
+            items.add(product)
         }
     }
 
-    public double total() {
-        double sum = 0;
-        for (Product item : items) {
-            sum += item.getPrice();
-        }
-        return sum;
-    }
+    fun total(): Double = items.sumOf { it.price }
 }
