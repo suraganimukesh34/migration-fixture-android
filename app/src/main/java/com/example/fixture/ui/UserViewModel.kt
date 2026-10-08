@@ -1,26 +1,14 @@
-package com.example.fixture.ui;
+package com.example.fixture.ui
 
-import com.example.fixture.data.UserRepository;
-import com.example.fixture.model.User;
+import com.example.fixture.data.UserRepository
 
-public class UserViewModel {
-    private final UserRepository repository;
-    private String displayName;
+class UserViewModel(private val repository: UserRepository) {
+    var displayName: String? = null
+        private set
 
-    public UserViewModel(UserRepository repository) {
-        this.repository = repository;
-    }
-
-    public String getDisplayName() {
-        return displayName;
-    }
-
-    public void loadUser(String id) {
-        repository.load(id, new UserRepository.Callback() {
-            @Override
-            public void onResult(User user) {
-                displayName = user != null ? user.getName() : "Unknown";
-            }
-        });
+    fun loadUser(id: String) {
+        repository.load(id) { user ->
+            displayName = user?.name ?: "Unknown"
+        }
     }
 }
