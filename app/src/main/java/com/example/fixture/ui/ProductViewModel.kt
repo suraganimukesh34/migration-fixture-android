@@ -1,26 +1,13 @@
-package com.example.fixture.ui;
+package com.example.fixture.ui
 
-import com.example.fixture.data.ProductRepository;
-import com.example.fixture.model.Product;
+import com.example.fixture.data.ProductRepository
 
-public class ProductViewModel {
-    private final ProductRepository repository;
-    private String label;
+class ProductViewModel(private val repository: ProductRepository) {
+    var label: String? = null
+        private set
 
-    public ProductViewModel(ProductRepository repository) {
-        this.repository = repository;
-    }
-
-    public String getLabel() {
-        return label;
-    }
-
-    public void loadProduct(String id) {
-        Product product = repository.get(id);
-        if (product == null) {
-            label = "Unknown";
-        } else {
-            label = product.getName() + " (" + product.getPrice() + ")";
-        }
+    fun loadProduct(id: String) {
+        val product = repository.get(id)
+        label = if (product == null) "Unknown" else "${product.name} (${product.price})"
     }
 }
